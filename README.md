@@ -31,7 +31,7 @@ While we're at it, we can also install Robofab, DialogKit, and FontTools. You do
 
 # License
 
-Copyright 2011-2014 huertatipografica (@huertatipo).
+Copyright 2011-2014 Huerta Tipográfica (http://www.huertatipografica.com / @huertatipo).
 Some code made thank to Georg Seifert (@schriftgestalt) and Eric Rainer (@mekkablue) help.
 
 Licensed under the Apache License, Version 2.0 (the "License");
