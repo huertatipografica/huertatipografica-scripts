@@ -19,15 +19,6 @@ For some scripts, you will also need to install Tal Leming's *Vanilla*. Here's h
 
 And you are done. The installation should be effective immediately, but in case it does not work right away, you may want to restart your Mac or log out and back in again.
 
-While we're at it, we can also install Robofab, DialogKit, and FontTools. You do not need those for my scripts though:
-
-    cd ../Robofab/
-    sudo python2.6 setup.py install
-    cd ../DialogKit/
-    sudo python2.6 install.py
-    cd ../FontTools/
-    sudo python2.6 setup.py install
-
 
 # License
 
