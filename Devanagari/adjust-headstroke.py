@@ -1,4 +1,7 @@
 #MenuTitle: Adjust headstroke
+__doc__="""
+Re arrange headstroke nodes in selected glyphs. You need to declare a headstroke glyph for y coordinates reference
+"""
 # -*- coding: utf-8 -*-
 
 import GlyphsApp
