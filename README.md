@@ -1,6 +1,6 @@
 # ABOUT
 
-These are Python scripts for use with the [Glyphs font editor](http://glyphsapp.com/) made by Juan Pablo del Peral and Andrés Torresi for Huerta Tipográfica.
+These are Python scripts for use with the [Glyphs font editor](http://glyphsapp.com/) made by Juan Pablo del Peral and Andrés Torresi for Huerta Tipográfica (http://www.huertatipografica.com / @huertatipo)..
 
 
 # INSTALLATION
