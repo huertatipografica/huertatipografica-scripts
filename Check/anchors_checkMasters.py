@@ -1,4 +1,7 @@
 #MenuTitle: Check different anchors in masters
+__doc__="""
+Check if the anchors are different in masters
+"""
 font=Glyphs.font
 masters=Glyphs.font.masters
 selectedLayers = Glyphs.currentDocument.selectedLayers()

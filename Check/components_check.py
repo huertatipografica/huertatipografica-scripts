@@ -1,4 +1,7 @@
 #MenuTitle: Check components in font
+__doc__="""
+Check existence and order of components in masters
+"""
 selectedLayers = Glyphs.currentDocument.selectedLayers()
 font = Glyphs.font
 masters= Glyphs.font.masters
