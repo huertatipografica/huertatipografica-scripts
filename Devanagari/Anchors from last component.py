@@ -25,7 +25,8 @@ for thisLayer in selectedLayers:
 	if len(components) > 0:
 		# select last component
 		componentName = thisLayer.components[last].componentName
-		componentOffset = thisLayer.components[last].position.x
+		componentOffsetX = thisLayer.components[last].position.x
+		componentOffsetY = thisLayer.components[last].position.y
 
 		# select glyph referenced on last component
 		componentLayer = Font.glyphs[ componentName ].layers[ FontMaster.id ]
@@ -35,8 +36,8 @@ for thisLayer in selectedLayers:
 		for anchor in componentLayer.anchors:
 			
 			thisAnchorPosition = NSPoint()
-			thisAnchorPosition.x = anchor.x + componentOffset
-			thisAnchorPosition.y = anchor.y
+			thisAnchorPosition.x = anchor.x + componentOffsetX
+			thisAnchorPosition.y = anchor.y + componentOffsetY
 
 			thisAnchorName = anchor.name
 
