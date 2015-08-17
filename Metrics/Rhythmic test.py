@@ -10,6 +10,8 @@ Doc = Glyphs.currentDocument
 Font = Glyphs.font
 selectedLayers = Font.selectedLayers
 
+repetitions = 5
+
 outputString = ''
 Glyphs.clearLog()
 
@@ -24,7 +26,8 @@ else:
 # Add three times
 for thisLayer in selectedLayers:
 	thisGlyphName = thisLayer.parent.name
-	outputString +='/'+thisGlyphName+'/'+thisGlyphName+'/'+thisGlyphName
+	for x in xrange(0,repetitions):
+		outputString +='/'+thisGlyphName
 
 # Add one time
 outputString +="\n"
