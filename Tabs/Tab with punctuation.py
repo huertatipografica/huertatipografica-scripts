@@ -1,16 +1,28 @@
 #MenuTitle: Tab with punctuation
+# -*- coding: utf-8 -*-
+__doc__="""
+Combine selected glyphs in a new Tab with all the punctuation characters present in the font
+"""
 import GlyphsApp
-from PyObjCTools.AppHelper import callAfter
-font=Glyphs.font
-layers = Glyphs.currentDocument.selectedLayers()
-layer = layers[0]
-glyphname = layer.parent.name
-outputString=''
-for thisGlyph in font.glyphs:
-	if thisGlyph.category == 'Punctuation':
-		outputString += "/"+glyphname +"/" +thisGlyph.name
+
+Doc = Glyphs.currentDocument
+Font = Glyphs.font
+
+selectedGlyphs = [ x.parent.name for x in Font.selectedLayers]
+combiningGroup = [glyph.name for glyph in Font.glyphs if glyph.category == 'Punctuation']
+
+outputString = ''
+
+# Print all glyphs
+for glyph in selectedGlyphs:
+	outputString +='/'+glyph
+outputString += '\n'
+
+# Combining loop
+for glyph in selectedGlyphs:
+	# Each combining
+	for combining in combiningGroup:
+		outputString +='/'+combining+'/'+glyph+'/'+combining+'/space'
 
 
-callAfter( Glyphs.currentDocument.windowController().addTabWithString_, outputString )
-print outputString
-print 'Fin'
+Doc.windowController().performSelectorOnMainThread_withObject_waitUntilDone_( "addTabWithString:", outputString, True )
