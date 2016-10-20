@@ -54,16 +54,16 @@ class GroupsCopy(object):
 					glyphName = thisGlyph.name
 					try:
 						sourceGlyph = Font_source.glyphs[ glyphName ]
-						oldL = thisGlyph.leftMetricsGroup
-						oldR = thisGlyph.rightMetricsGroup
-						newL = sourceGlyph.leftMetricsGroup
-						newR = sourceGlyph.rightMetricsGroup
+						oldL = thisGlyph.leftMetricsKey
+						oldR = thisGlyph.rightMetricsKey
+						newL = sourceGlyph.leftMetricsKey
+						newR = sourceGlyph.rightMetricsKey
 
 						if oldL != newL:
-							thisGlyph.leftMetricsGroup  = newL
+							thisGlyph.leftMetricsKey  = newL
 
 						if oldR != newR:
-							thisGlyph.rightMetricsGroup = newR
+							thisGlyph.rightMetricsKey = newR
 
 							print "   ", glyphName, ":", newL, "<--->", newR
 						pass
