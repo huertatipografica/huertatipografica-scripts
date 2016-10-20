@@ -12,7 +12,7 @@ selectedLayers = Font.selectedLayers
 qty = len(selectedLayers)
 
 # Config
-repetitions = 2
+repetitions = 1
 
 # Clean
 Glyphs.clearLog()
