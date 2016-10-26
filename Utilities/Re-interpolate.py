@@ -1,4 +1,4 @@
-#MenuTitle: Re-interpolate Regular master
+#MenuTitle: Re-interpolate
 # -*- coding: utf-8 -*-
 __doc__="""
 Re interpolate the regular weight. Useful for sync contours adjustments in a 3 master set up.
