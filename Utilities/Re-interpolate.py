@@ -26,11 +26,17 @@ def process( thisLayer ):
 
 thisFont.disableUpdateInterface() # suppresses UI updates in Font View
 
-for thisLayer in listOfSelectedLayers:
-	thisGlyph = thisLayer.parent
-	print "Re-interpolating", thisGlyph.name
-	thisGlyph.beginUndo() # begin undo
-	process( thisLayer )
-	thisGlyph.endUndo()   # end undo
+if len(thisFont.masters) > 2:
+
+	for thisLayer in listOfSelectedLayers:
+		thisGlyph = thisLayer.parent
+		print "Re-interpolating", thisGlyph.name
+		thisGlyph.beginUndo() # begin undo
+		process( thisLayer )
+		thisGlyph.endUndo()   # end undo
+
+else:
+	Message("Need a 3+ masters font to work", '', OKButton="OK")
+
 
 thisFont.enableUpdateInterface() # re-enables UI updates in Font View
