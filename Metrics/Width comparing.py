@@ -1,7 +1,7 @@
-#MenuTitle: Master to brace layer
+#MenuTitle: Width comparing
 # -*- coding: utf-8 -*-
 __doc__="""
-Duplicates the selected master in a brace layer in selected characters.
+Comparing widths in different masters. Mark when is different
 """
 
 import GlyphsApp
@@ -10,27 +10,30 @@ thisFont = Glyphs.font # frontmost font
 thisFontMaster = thisFont.selectedFontMaster # active master
 listOfSelectedLayers = thisFont.selectedLayers # active layers of selected glyphs
 
+Glyphs.clearLog()
+
+# Config
+color = 0
+precision = 5 # Range for comparing results. Lower values results in more accuracy
 
 
-def process( thisLayer ):
-	thisGlyph = thisLayer.parent
-
-	# duplicate this master into a new brace layer
-	newLayer = thisLayer.copy()
-	newLayer.name = "{%d}" % thisFontMaster.weightValue
-	newLayer.associatedMasterId = thisFont.masters[0].id # attach to first master
-
-	thisFont.glyphs[thisGlyph.name].layers.append(newLayer)
+def process( thisGlyph ):
+	firstMasterWidth = thisGlyph.layers[thisFont.masters[0].id].width
+	for master in thisFont.masters:
+		width = thisGlyph.layers[master.id].width
+		if width - firstMasterWidth not in range(-precision,precision):
+			thisGlyph.color = color
+			break
 
 
 thisFont.disableUpdateInterface() # suppresses UI updates in Font View
 
 for thisLayer in listOfSelectedLayers:
 	thisGlyph = thisLayer.parent
-	print "Adding brace layer for", thisGlyph.name, thisFontMaster.name
 	thisGlyph.beginUndo() # begin undo
-	process( thisLayer )
+	process( thisGlyph )
 	thisGlyph.endUndo()   # end undo
 
 
 thisFont.enableUpdateInterface() # re-enables UI updates in Font View
+
