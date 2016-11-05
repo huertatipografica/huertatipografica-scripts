@@ -13,11 +13,11 @@ selectedLayers = Font.selectedLayers
 class OpenTab(object):
 
 	def __init__(self):
-		self.outputString = ''
+		self.tabString = ''
 
 		self.w = vanilla.FloatingWindow( (360, 80), "Intercalation", autosaveName="com.juandelperal.Intercalation.mainwindow" )
 		self.w.text = vanilla.TextBox( (13, 15, 320, 20), "Slashed string to intercal with selected glyphs (ex. /n/o)", sizeStyle='small')
-		self.w.interCharacter = vanilla.EditText( (15, 35, 200, 20), "H", sizeStyle='small', placeholder='/n/n/n', callback=self.SavePreferences )
+		self.w.interString = vanilla.EditText( (15, 35, 200, 20), "H", sizeStyle='small', placeholder='/n/n/n', callback=self.SavePreferences )
 		self.w.go = vanilla.Button( (220, 30, 60, 30), "Go", sizeStyle='small', callback=self.Intercal )
 		self.w.cancel = vanilla.Button( (285, 30, 60, 30), "Close", sizeStyle='small', callback=self.Close )
 
@@ -31,25 +31,25 @@ class OpenTab(object):
 
 
 	def SavePreferences( self, sender ):
-		Glyphs.defaults["com.juandelperal.Intercalation.mainwindow.interCharacter"] = self.w.interCharacter.get()
+		Glyphs.defaults["com.juandelperal.Intercalation.mainwindow.interString"] = self.w.interString.get()
 
 		return True
 
 	def LoadPreferences( self ):
 		try:
-			self.w.interCharacter.set( Glyphs.defaults["com.juandelperal.Intercalation.mainwindow.interCharacter"] )
+			self.w.interString.set( Glyphs.defaults["com.juandelperal.Intercalation.mainwindow.interString"] )
 		except:
 			return False
 
 		return True
 
 	def Intercal(self, sender):
-		interCharacter = self.w.interCharacter.get()
+		interString = self.w.interString.get()
 		for thisLayer in selectedLayers:
 			thisGlyphName = thisLayer.parent.name
-			self.outputString +='/'+thisGlyphName+ interCharacter
+			self.tabString += "/%s%s" % (thisGlyphName, interString)
 
-		Doc.windowController().performSelectorOnMainThread_withObject_waitUntilDone_( "addTabWithString:", self.outputString, True )
+		Font.newTab(self.tabString)
 		self.w.close()
 
 	def Close(self, sender):
