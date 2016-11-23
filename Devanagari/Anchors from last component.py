@@ -19,7 +19,8 @@ except:
 
 for thisLayer in selectedLayers:
 	# Reset array
-	components = [ component for component in thisLayer.components if Font.glyphs[ component.componentName ].category == 'Letter']
+	# components = [ component for component in thisLayer.components if Font.glyphs[ component.componentName ].category == 'Letter']
+	components = [ component for component in thisLayer.components]
 	last = len(components) - 1
 
 	if len(components) > 0:
@@ -30,11 +31,11 @@ for thisLayer in selectedLayers:
 
 		# select glyph referenced on last component
 		componentLayer = Font.glyphs[ componentName ].layers[ FontMaster.id ]
-		
+
 		print thisLayer.parent.name.upper()
 		# Copy all anchors
 		for anchor in componentLayer.anchors:
-			
+
 			thisAnchorPosition = NSPoint()
 			thisAnchorPosition.x = anchor.x + componentOffsetX
 			thisAnchorPosition.y = anchor.y + componentOffsetY
