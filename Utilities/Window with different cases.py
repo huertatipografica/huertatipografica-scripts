@@ -1,4 +1,4 @@
-#MenuTitle: New Tab with different cases
+#MenuTitle: Window with different cases
 # -*- coding: utf-8 -*-
 __doc__="""
 Opens a new edit tab with current glyphs in both cases —and small caps (configurable).
