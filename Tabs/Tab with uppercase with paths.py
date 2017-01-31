@@ -16,6 +16,7 @@ def process (thisLayer):
 	for g in targetGlyphs:
 		lista.append(thisLayer.parent.name)
 		lista.append(g)
+	lista.append(thisLayer.parent.name)
 	lista.append("\n")
 
 for thisLayer in selectedLayers:
