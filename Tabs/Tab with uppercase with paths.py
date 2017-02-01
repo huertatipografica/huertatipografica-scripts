@@ -3,8 +3,6 @@
 
 import GlyphsApp
 
-Glyphs.clearLog()
-Glyphs.showMacroWindow()
 thisFont = Glyphs.font
 selectedLayers = thisFont.selectedLayers
 
