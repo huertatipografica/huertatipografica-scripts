@@ -1,7 +1,7 @@
 #MenuTitle: Custom Parameter Helper
 # -*- coding: utf-8 -*-
 __doc__="""
-Useful for adding Replace Glyphs and Remove Glyphs parameters
+Useful for adding Replace Glyphs and Remove Glyphs parameters. Copy and paste output in instance (Font info). Requires Vanilla
 """
 import GlyphsApp
 import vanilla
@@ -51,13 +51,14 @@ class OpenTab(object):
 
 		Glyphs.clearLog()
 		Glyphs.showMacroWindow()
+		self.w.close()
 
-		replaceList = []
+		renameList = []
 
 		for glyph in targetGlyphs:
 			replacement = glyph.replace('.' + suffix,"")
 			if replacement in glyphList:
-				replaceList.append("%s=%s" % ( glyph, replacement))
+				renameList.append(str("%s=%s" % ( glyph, replacement)))
 
 		removeList = []
 
@@ -65,16 +66,30 @@ class OpenTab(object):
 			replacement = glyph.replace('.' + suffix,"")
 			if replacement in glyphList:
 
-				removeList.append(glyph)
+				removeList.append(str(glyph))
 
-		print "Replace Glyphs code\n\n"
-		for s in replaceList:
-			print s
-		print "\n\n\n\n\n\n\nRemove Glyphs code\n\n"
-		for s in removeList:
-			print s
+		# print "Replace Glyphs code\n\n"
+		# for s in renameList:
+		# 	print s
+		# print "\n\n\n\n\n\n\nRemove Glyphs code\n\n"
+		# for s in removeList:
+		# 	print s
 
-		self.w.close()
+		code = (
+			{
+			'Rename Glyphs': tuple(renameList)
+			},
+			{
+			'Remove Glyphs': tuple(removeList)
+			}
+		)
+
+		# Parsing and formating entries
+		code = str(code)
+		code = code.replace(':', '=')
+		code = code.replace(')', ');')
+		print code[:-1]
+
 
 	def Close(self, sender):
 		self.w.close()
