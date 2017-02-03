@@ -46,26 +46,20 @@ class OpenTab(object):
 		return True
 
 	def GoForIt(self, sender):
-		suffix = self.w.suffix.get()
-		targetGlyphs = [g for g in glyphList if suffix in g]
-
 		Glyphs.clearLog()
 		Glyphs.showMacroWindow()
 		self.w.close()
 
+		suffix = self.w.suffix.get()
+		targetGlyphs = [g for g in glyphList if "." + suffix in g]
+
 		renameList = []
-
-		for glyph in targetGlyphs:
-			replacement = glyph.replace('.' + suffix,"")
-			if replacement in glyphList:
-				renameList.append(str("%s=%s" % ( glyph, replacement)))
-
 		removeList = []
 
 		for glyph in targetGlyphs:
 			replacement = glyph.replace('.' + suffix,"")
 			if replacement in glyphList:
-
+				renameList.append(str("%s=%s" % ( glyph, replacement)))
 				removeList.append(str(glyph))
 
 		# print "Replace Glyphs code\n\n"
