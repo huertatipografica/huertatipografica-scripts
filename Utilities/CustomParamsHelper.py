@@ -52,20 +52,27 @@ class OpenTab(object):
 		Glyphs.clearLog()
 		Glyphs.showMacroWindow()
 
+		replaceList = []
+
+		for glyph in targetGlyphs:
+			replacement = glyph.replace('.' + suffix,"")
+			if replacement in glyphList:
+				replaceList.append("%s=%s" % ( glyph, replacement))
+
+		removeList = []
+
+		for glyph in targetGlyphs:
+			replacement = glyph.replace('.' + suffix,"")
+			if replacement in glyphList:
+
+				removeList.append(glyph)
+
 		print "Replace Glyphs code\n\n"
-
-		for glyph in targetGlyphs:
-			replacement = glyph.replace('.' + suffix,"")
-			if replacement in glyphList:
-				print "%s=%s" % ( glyph, replacement)
-
+		for s in replaceList:
+			print s
 		print "\n\n\n\n\n\n\nRemove Glyphs code\n\n"
-
-		for glyph in targetGlyphs:
-			replacement = glyph.replace('.' + suffix,"")
-			if replacement in glyphList:
-				print glyph
-
+		for s in removeList:
+			print s
 
 		self.w.close()
 
