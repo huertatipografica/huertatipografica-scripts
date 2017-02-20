@@ -1,4 +1,4 @@
-#MenuTitle: add/rename suffix
+ç#MenuTitle: add/rename suffix
 # -*- coding: utf-8 -*-
 __doc__="""
 Requires vanilla
@@ -58,9 +58,9 @@ class OpenTab(object):
 			oldName = glyph.name
 
 			if self.w.remove.get():
-				newName = glyph.name.split(".")[0] + suffix
+				newName = oldName.split(".")[0] + suffix
 			else :
-				newName = glyph.name  + suffix
+				newName = oldName  + suffix
 
 			glyph.name = newName
 			print "%s --> %s" % (oldName, newName)
