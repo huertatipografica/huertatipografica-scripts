@@ -1,4 +1,4 @@
-ç#MenuTitle: add/rename suffix
+#MenuTitle: Add-rename suffix
 # -*- coding: utf-8 -*-
 __doc__="""
 Requires vanilla
