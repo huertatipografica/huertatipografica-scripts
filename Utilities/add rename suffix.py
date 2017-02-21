@@ -53,6 +53,8 @@ class OpenTab(object):
 
 		suffix = self.w.suffix.get()
 
+		Font.disableUpdateInterface()
+
 		for l in selectedLayers:
 			glyph = l.parent
 			oldName = glyph.name
@@ -64,6 +66,8 @@ class OpenTab(object):
 
 			glyph.name = newName
 			print "%s --> %s" % (oldName, newName)
+
+		Font.enableUpdateInterface()
 
 
 	def Close(self, sender):
