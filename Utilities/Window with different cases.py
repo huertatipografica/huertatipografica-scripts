@@ -17,7 +17,8 @@ sc = True # If you wanna include smallcaps
 glyphList = []
 
 for layer in listOfSelectedLayers:
-	name = layer.parent.name
+	name = layer.parent.name.replace(".sc","")
+
 	# Uppercase
 	glyphList.append(name[0].upper() + name[1:] )
 	# Small Caps
