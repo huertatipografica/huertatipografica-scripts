@@ -18,6 +18,7 @@ glyphList = []
 
 for layer in listOfSelectedLayers:
 	name = layer.parent.name.replace(".sc","")
+	name = name[0].lower() + name[1:]
 
 	# Uppercase
 	glyphList.append(name[0].upper() + name[1:] )
