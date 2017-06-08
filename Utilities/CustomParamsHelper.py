@@ -56,6 +56,7 @@ class OpenTab(object):
 		renameList = []
 		removeList = []
 
+
 		for glyph in targetGlyphs:
 			replacement = glyph.replace('.' + suffix,"")
 			if replacement in glyphList:
@@ -69,7 +70,13 @@ class OpenTab(object):
 		# for s in removeList:
 		# 	print s
 
+		renameList.reverse()
+		removeList.reverse()
+
 		code = (
+			{
+			'Decompose Glyphs': tuple(removeList)
+			},
 			{
 			'Rename Glyphs': tuple(renameList)
 			},
