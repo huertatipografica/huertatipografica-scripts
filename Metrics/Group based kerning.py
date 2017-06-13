@@ -12,7 +12,7 @@ selectedLayers = thisFont.selectedLayers # active layers of selected glyphs
 Glyphs.clearLog()
 
 keys = set([ l.parent.leftKerningGroup for l in selectedLayers if l.parent.leftKerningGroup] + [ l.parent.rightKerningGroup for l in selectedLayers if l.parent.rightKerningGroup] )
-tabString = 'KerningGroups parents:\n%s\n\n Combinations:\n' % "/".join(keys)
+tabString = 'KerningGroups parents:\n%s\n\n Combinations:\n' % ("/" + "/".join(keys))
 
 
 if len(keys):
@@ -20,8 +20,7 @@ if len(keys):
 		for i in keys:
 			tabString += "/" + n
 			tabString += "/" + i
-		tabString += "/" + n
-		tabString += '\n'
+		tabString += "/" + n + '\n\n'
 
 	thisFont.newTab(tabString)
 

@@ -17,8 +17,7 @@ for n in selectedLayers:
 	for i in selectedLayers:
 		tabString += "/" + n.parent.name
 		tabString += "/" + i.parent.name
-	tabString += "/" + n.parent.name
-	tabString += '\n'
+	tabString += "/" + n.parent.name + '\n\n'
 
 thisFont.newTab(tabString)
 
