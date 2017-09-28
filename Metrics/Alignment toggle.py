@@ -1,7 +1,7 @@
-#MenuTitle: Toggle alignment for selected glyphs
+#MenuTitle: Alignment: toggle
 # -*- coding: utf-8 -*-
 __doc__="""
-Enables/Disabled automatic alignment for all components in all selected glyphs. Thanks @mekkablue
+Toggle automatic alignment for all components in all selected glyphs. Thanks @mekkablue
 """
 
 import GlyphsApp
