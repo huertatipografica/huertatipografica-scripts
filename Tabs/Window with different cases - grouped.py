@@ -31,5 +31,7 @@ for layer in listOfSelectedLayers:
 		# Lower
 		lower.append(name.lower())
 
-tabString = "/"+"/".join(upper) + '\n' + "/"+"/".join(lower) + '\n' + "/"+"/".join(sc) + '\n'
+glyphList = upper + ['\n'] + lower + ['\n'] + sc
+tabString = "/"+"/".join(glyphList)
+
 thisFont.newTab(tabString)
