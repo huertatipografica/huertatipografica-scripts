@@ -26,5 +26,5 @@ if len(keys):
 
 else:
 	Message("No kerning groups set :|", '', OKButton="OK")
-	
+
 

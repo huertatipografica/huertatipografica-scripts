@@ -15,6 +15,8 @@ listOfSelectedLayers = thisFont.selectedLayers # active layers of selected glyph
 admitedMasters = [
 	'Regular',
 	'Regular Italic',
+	'SemiBold',
+	'SemiBold Italic',
 ]
 
 def process( thisLayer ):
