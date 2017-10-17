@@ -1,7 +1,7 @@
 #MenuTitle: Simplify kerning groups
 # -*- coding: utf-8 -*-
 __doc__="""
-Goes through the kerning groups of the selected glyphs and try to reduce the kerning groups parents
+Goes through the kerning groups of the selected glyphs and try to reduce them looking for its parents
 """
 
 import GlyphsApp
