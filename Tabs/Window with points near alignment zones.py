@@ -14,7 +14,7 @@ fontMaster = thisFont.selectedFontMaster # active master
 glyphList = []
 
 # Config
-umbral = 10
+umbral = 15
 
 # Thanks Guido :)
 def zoneList( master ):
