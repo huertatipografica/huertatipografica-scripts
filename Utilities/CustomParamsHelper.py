@@ -73,10 +73,19 @@ class OpenTab(object):
 		renameList.reverse()
 		removeList.reverse()
 
+		# code = (
+		# 	{
+		# 	'Decompose Glyphs': tuple(removeList)
+		# 	},
+		# 	{
+		# 	'Rename Glyphs': tuple(renameList)
+		# 	},
+		# 	{
+		# 	'Remove Glyphs': tuple(removeList)
+		# 	}
+		# )
+
 		code = (
-			{
-			'Decompose Glyphs': tuple(removeList)
-			},
 			{
 			'Rename Glyphs': tuple(renameList)
 			},
