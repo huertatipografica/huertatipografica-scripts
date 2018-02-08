@@ -12,7 +12,7 @@ listOfSelectedLayers = thisFont.selectedLayers # active layers of selected glyph
 
 
 # Config
-separator = False # Setup separator if you want, for example 'space'
+separator = 'space' # Setup separator if you want, for example 'space'
 sc = True # If you wanna include smallcaps
 
 glyphList = []
@@ -35,5 +35,6 @@ for layer in listOfSelectedLayers:
 	else:
 		glyphList.append('\n')
 
+# glyphList = set(glyphList)
 tabString = "/"+"/".join(glyphList)
 thisFont.newTab(tabString)
