@@ -1,4 +1,4 @@
-#MenuTitle: Window with points near alignment zones
+#MenuTitle: Tab with points near alignment zones
 # -*- coding: utf-8 -*-
 __doc__="""
 Useful for checking vertical alignment / hinting problems. Partialy stolen from guidoferreyra's script

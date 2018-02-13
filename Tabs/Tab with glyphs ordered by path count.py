@@ -1,4 +1,4 @@
-#MenuTitle: Window with glyphs ordered by path count
+#MenuTitle: Tab with glyphs ordered by path count
 # -*- coding: utf-8 -*-
 __doc__="""
 Window with glyphs ordered by path count. Also sum components

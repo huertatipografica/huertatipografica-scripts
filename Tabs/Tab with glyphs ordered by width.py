@@ -1,7 +1,7 @@
-#MenuTitle: Window with glyphs ordered by node count
+#MenuTitle: Tab with glyphs ordered by path width
 # -*- coding: utf-8 -*-
 __doc__="""
-Window with glyphs ordered by node count
+Window with glyphs ordered by path width
 """
 
 import GlyphsApp
@@ -15,10 +15,8 @@ glyphs = []
 
 # Fill array
 for thisLayer in selectedLayers:
-	count = 0
 	if thisLayer.parent.subCategory != 'Space':
-		for thisPath in thisLayer.paths:
-			count += len(thisPath.nodes)
+		count = thisLayer.bounds.size.width
 		glyphs.append([ count, thisLayer.parent.name ])
 
 # Sort Glyphs by node count

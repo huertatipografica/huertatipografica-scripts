@@ -1,4 +1,4 @@
-#MenuTitle: Window with different cases
+#MenuTitle: Tab with different cases (grouped)
 # -*- coding: utf-8 -*-
 __doc__="""
 Opens a new edit tab with current glyphs in both cases —and small caps (configurable).
@@ -12,10 +12,11 @@ listOfSelectedLayers = thisFont.selectedLayers # active layers of selected glyph
 
 
 # Config
-separator = 'space' # Setup separator if you want, for example 'space'
 sc = True # If you wanna include smallcaps
 
-glyphList = []
+upper = []
+lower = []
+sc = []
 
 for layer in listOfSelectedLayers:
 	if hasattr(layer.parent, 'name'):
@@ -23,18 +24,14 @@ for layer in listOfSelectedLayers:
 		name = name[0].lower() + name[1:]
 
 		# Uppercase
-		glyphList.append(name[0].upper() + name[1:] )
+		upper.append(name[0].upper() + name[1:] )
 		# Small Caps
 		if sc:
-			glyphList.append(name.lower() + ".sc")
+			sc.append(name.lower() + ".sc")
 		# Lower
-		glyphList.append(name.lower())
-		# Separator
-		if separator:
-			glyphList.append(separator)
-	else:
-		glyphList.append('\n')
+		lower.append(name.lower())
 
-# glyphList = set(glyphList)
+glyphList = upper + ['\n'] + lower + ['\n'] + sc
 tabString = "/"+"/".join(glyphList)
+
 thisFont.newTab(tabString)

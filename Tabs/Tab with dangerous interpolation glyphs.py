@@ -1,4 +1,4 @@
-#MenuTitle: Window with dangerous interpolation glyphs
+#MenuTitle: Tab with dangerous interpolation glyphs
 # -*- coding: utf-8 -*-
 __doc__="""
 Opens a new tab with glyphs that may produce funny interpolations. Useful for compatible glyphs
