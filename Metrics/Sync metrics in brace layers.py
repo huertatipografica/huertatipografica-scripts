@@ -16,10 +16,10 @@ lastMaster = masters[-1]
 
 
 def interpolate(x1, y1, x3, y3, x2):
-	return ((float(x2) - float(x1)) * (float(y3) - float(y1)) / (float(x3) - float(x1))) + float(y1)
+	return ((x2 - x1) * (y3 - y1) / (x3 - x1)) + y1
 
 def getWeight(string):
-	return re.sub(".*{|}.*", "", string)
+	return int(re.sub(".*{|}.*", "", string))
 
 def getSidebearings(name, weight):
 	firstMasterLayer = thisFont.glyphs[name].layers[firstMaster.id]
