@@ -1,35 +1,46 @@
 #MenuTitle: Check different anchors in masters
 __doc__="""
-Check if the anchors are different in masters
+Check if the anchors are different in masters, and if so, color-marks the glyph and reports in the macro window.
 """
-font=Glyphs.font
-masters=Glyphs.font.masters
-selectedLayers = Glyphs.currentDocument.selectedLayers()
 
-output=''
-
-
+selectedLayers = Glyphs.font.selectedLayers
 Glyphs.clearLog()
 
-
-def anchors(selectedLayers,masters,font):
-	mNum=len(masters)
-	layersids=range(mNum)
-	output='Sin problemas.'
+def glyphReport(glyph):
+	anchors=[]
+	for layer in glyph.layers:
+		if layer.isSpecialLayer or layer.isMasterLayer:
+			anchors.append(len(layer.anchors))
+			
+	numberOfAnchorsIsNotConsistent = max(anchors)!=min(anchors)
+	if numberOfAnchorsIsNotConsistent:
+		output=""
+		glyph.color=1
+		output="\n%s:\n"%glyph.name
+		for layer in glyph.layers:
+			if layer.isSpecialLayer or layer.isMasterLayer:
+				output+="- %i anchors on layer '%s': %s\n"%(
+					len(layer.anchors),
+					layer.name,
+					", ".join([a.name for a in layer.anchors])
+				)
+		return output
 	
+	return None
+
+def anchors(selectedLayers):
+	output=""
 	for layer in selectedLayers:
 		g=layer.parent
-		anchors=[]
-		for id in layersids:
-			anchors.append(len(g.layers[id].anchors))
-		if max(anchors)!=min(anchors):
-			output=''
-			g.color=1
-			for id in layersids:
-				output+=g.name+"\n"+str(g.layers[id].anchors)+"\n"
-	return output
-
-print anchors(selectedLayers,masters,font)
-
+		glyphOutput=glyphReport(g)
+		if glyphOutput:
+			output+=glyphOutput
 	
+	if not output:
+		return "Sin problemas. No problems found."
+	else:
+		# brings macro window to front:
+		Glyphs.showMacroWindow()
+		return output
 
+print anchors(selectedLayers)
