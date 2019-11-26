@@ -15,9 +15,10 @@ Glyphs.clearLog()
 def char(name):
     category = thisFont[name].category
     subCategory = thisFont[name].subCategory
+    script = thisFont[name].script
 
     return (
-        "%s%s%s" % (category, subCategory, name),
+        "%s%s%s%s" % (category, subCategory, script, name),
         name,
     )
 
