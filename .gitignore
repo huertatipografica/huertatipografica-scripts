@@ -3,3 +3,4 @@ Makefile
 .DS_Store
 Thumbs.db
 temp
+.vscode/

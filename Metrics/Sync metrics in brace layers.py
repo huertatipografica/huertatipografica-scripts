@@ -1,70 +1,53 @@
 #MenuTitle: Sync metrics in brace layers
 # -*- coding: utf-8 -*-
 __doc__="""
-Sync spacing interpolating values between extreme masters
+Sync spacing interpolating the metrics in the brace layers
 """
 
 import GlyphsApp
-import re
 
 thisFont = Glyphs.font # frontmost font
 masters = thisFont.masters # masters
 listOfSelectedLayers = thisFont.selectedLayers # active layers of selected glyphs
 
-firstMaster = masters[0]
-lastMaster = masters[-1]
-
-
-def interpolate(x1, y1, x3, y3, x2):
-	return ((x2 - x1) * (y3 - y1) / (x3 - x1)) + y1
-
-def getWeight(string):
-	return int(re.sub(".*{|}.*", "", string))
-
-def getSidebearings(name, weight):
-	firstMasterLayer = thisFont.glyphs[name].layers[firstMaster.id]
-	lastMasterLayer = thisFont.glyphs[name].layers[lastMaster.id]
-
-	interpolatedLSB = interpolate(firstMaster.weightValue, firstMasterLayer.LSB, lastMaster.weightValue, lastMasterLayer.LSB, weight)
-	interpolatedRSB = interpolate(firstMaster.weightValue, firstMasterLayer.RSB, lastMaster.weightValue, lastMasterLayer.RSB, weight)
-
-	# Debugging
-	# print "LEFT\t %s:\t%i <- -> %i\t(weight %s)" % (firstMaster.name, firstMasterLayer.LSB, firstMasterLayer.RSB, firstMaster.weightValue)
-	# print "RIGHT\t %s:\t%i <- -> %i\t(weight %s)" % (lastMaster.name, lastMasterLayer.LSB, lastMasterLayer.RSB, lastMaster.weightValue)
-
-	sidebearings = [interpolatedLSB, interpolatedRSB]
-
-	return sidebearings
-
 def process(thisLayer):
-	thisGlyph = thisLayer.parent
-	for i in range( len( thisGlyph.layers ) )[::-1]:
-		currentLayer = thisGlyph.layers[i]
-		# check name
-		if currentLayer.name.endswith("}"):
+    thisGlyph = thisLayer.parent
+    for i in range( len( thisGlyph.layers ) )[::-1]:
+        currentLayer = thisGlyph.layers[i]
+        # check name
+        if currentLayer.name.startswith("{") and currentLayer.name.endswith("}"):
+            old = currentLayer.copy()
 
-			# Calculate and apply the thing
-			weight = getWeight(currentLayer.name)
-			interpolatedSidebearings = getSidebearings(thisGlyph.name, weight)
-			currentLayer.LSB = interpolatedSidebearings[0]
-			currentLayer.RSB = interpolatedSidebearings[1]
-			print "%s:\t%i <- -> %i\t(weight %s)" % (currentLayer.name, currentLayer.LSB, currentLayer.RSB, weight)
+            # Reinterpolate
+            currentLayer.reinterpolate()
 
+            # apply oldData except metrics
+            currentLayer.guides = old.guides
+            currentLayer.annotations = old.annotations
+            currentLayer.hints = old.hints
+            currentLayer.anchors = old.anchors
+            currentLayer.paths = old.paths
+            currentLayer.leftMetricsKey = old.leftMetricsKey
+            currentLayer.rightMetricsKey = old.rightMetricsKey
+            currentLayer.widthMetricsKey = old.widthMetricsKey
+            currentLayer.background = old.background
+            currentLayer.backgroundImage = old.backgroundImage
+
+            if old.RSB != currentLayer.RSB or old.LSB != currentLayer.LSB:
+                print "%s:\t%i <- -> %i" % (currentLayer.name, currentLayer.LSB, currentLayer.RSB)
 
 thisFont.disableUpdateInterface()
 Glyphs.clearLog()
 
-if len(masters) == 2:
-	for thisLayer in listOfSelectedLayers:
-		thisGlyph = thisLayer.parent
 
-		thisGlyph.beginUndo()
+for thisLayer in listOfSelectedLayers:
+    thisGlyph = thisLayer.parent
 
-		process(thisLayer)
+    thisGlyph.beginUndo()
 
-		thisGlyph.endUndo()
-else:
-	Message("Hey, wait a moment", 'This scripts needs a 2 masters font to work', OKButton="OK")
+    process(thisLayer)
+
+    thisGlyph.endUndo()
 
 thisFont.enableUpdateInterface()
 
