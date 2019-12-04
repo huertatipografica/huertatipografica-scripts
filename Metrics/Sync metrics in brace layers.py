@@ -16,10 +16,13 @@ def process(thisLayer):
         currentLayer = thisGlyph.layers[i]
         # check name
         if currentLayer.name.startswith("{") and currentLayer.name.endswith("}"):
+
             old = currentLayer.copy()
 
             # Reinterpolate
             currentLayer.reinterpolate()
+            old.LSB = currentLayer.LSB
+            old.RSB = currentLayer.RSB
 
             # apply oldData except metrics
             currentLayer.guides = old.guides
@@ -33,8 +36,7 @@ def process(thisLayer):
             currentLayer.background = old.background
             currentLayer.backgroundImage = old.backgroundImage
 
-            if old.RSB != currentLayer.RSB or old.LSB != currentLayer.LSB:
-                print "%s:\t%i <- -> %i" % (currentLayer.name, currentLayer.LSB, currentLayer.RSB)
+            print "%s:\t%i <- -> %i" % (currentLayer.name, currentLayer.LSB, currentLayer.RSB)
 
 thisFont.disableUpdateInterface()
 Glyphs.clearLog()
