@@ -20,15 +20,23 @@ glyphList = []
 for layer in listOfSelectedLayers:
 	if hasattr(layer.parent, 'name'):
 		name = layer.parent.name.replace(".sc","")
-		name = name[0].lower() + name[1:]
+		name = name.replace(".smcp","")
+		segments = name.split(".")
+
+		segment = segments[0]
+		lc = segment[0].lower() + segments[0][1:]
+		uc = segment[0].upper() + segments[0][1:]
 
 		# Uppercase
-		glyphList.append(name[0].upper() + name[1:] )
+		segments[0] = uc
+		glyphList.append(".".join(segments))
+		segments[0] = lc
 		# Small Caps
 		if sc:
-			glyphList.append(name.lower() + ".sc")
+			glyphList.append(".".join(segments) + ".sc")
 		# Lower
-		glyphList.append(name.lower())
+		glyphList.append(".".join(segments))
+
 		# Separator
 		if separator:
 			glyphList.append(separator)
