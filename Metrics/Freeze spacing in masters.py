@@ -1,14 +1,14 @@
-#MenuTitle: Freeze spacing in masters
+# MenuTitle: Freeze spacing in masters
 # -*- coding: utf-8 -*-
-__doc__="""
+import GlyphsApp
+__doc__ = """
 Set metric keys for each layer of selected glyphs. Useful for setting exceptions to HT Letterspacer
 """
 
-import GlyphsApp
 
-thisFont = Glyphs.font # frontmost font
-thisFontMaster = thisFont.selectedFontMaster # active master
-listOfSelectedLayers = thisFont.selectedLayers # active layers of selected glyphs
+thisFont = Glyphs.font  # frontmost font
+thisFontMaster = thisFont.selectedFontMaster  # active master
+listOfSelectedLayers = thisFont.selectedLayers  # active layers of selected glyphs
 
 
 for thisLayer in listOfSelectedLayers:
@@ -24,6 +24,4 @@ for thisLayer in listOfSelectedLayers:
             layer.syncMetrics()
 
     thisGlyph.endUndo()
-
-
 
