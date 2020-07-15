@@ -4,3 +4,4 @@ Makefile
 Thumbs.db
 temp
 .vscode/
+*.pyc
