@@ -21,16 +21,7 @@ def jacquesSlanting(layer, angle):
     myX = radians(angle)  # horizontal skew = italic angle
     myY = -radians(angle)  # vertical skew = -0.5 * italic angle
 
-    # shear:
-    oldPos = layer.bounds.origin
     layer.applyTransform([1, myY/2, myX, 1, 0, 0])
-
-    # move back:
-    newPos = layer.bounds.origin
-    xShiftBack = oldPos.x-newPos.x
-    yShiftBack = oldPos.y-newPos.y
-    layer.applyTransform([1, 0, 0, 1, xShiftBack, yShiftBack])
-
     return layer
 
 
@@ -60,6 +51,13 @@ def process(layer):
     # Slanting foreground, cursify background
     slant(layer, angle, False)
     slant(layer.background, angle, True)
+
+    # move back:
+    oldPos = layer.bounds.origin
+    newPos = roundSlanting.bounds.origin
+    xShiftBack = oldPos.x-newPos.x
+    yShiftBack = oldPos.y-newPos.y
+    roundSlanting.applyTransform([1, 0, 0, 1, xShiftBack, yShiftBack])
 
 
 if(thisMaster.italicAngle == 0):
