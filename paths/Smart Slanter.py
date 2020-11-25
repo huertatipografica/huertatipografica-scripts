@@ -22,6 +22,9 @@ def jacquesSlanting(layer, angle):
     myY = -radians(angle)  # vertical skew = -0.5 * italic angle
 
     layer.applyTransform([1, myY/2, myX, 1, 0, 0])
+    layer.anchors = []
+    layer.background.paths = []
+
     return layer
 
 
