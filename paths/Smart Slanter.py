@@ -14,6 +14,7 @@ It takes the italicAngle declared in the Master as reference
 
 thisFont = Glyphs.font  # frontmost font
 selectedLayers = thisFont.selectedLayers  # active layers of selected glyphs
+thisMaster = thisFont.selectedFontMaster
 
 
 def jacquesSlanting(layer, angle):
@@ -34,7 +35,8 @@ def jacquesSlanting(layer, angle):
 
 
 def slant(layer, angle, cursify=False):
-    layer.slant_Origin_doCorrection_(angle, (0, 0), cursify)
+    layer.slant_Origin_doCorrection_(
+        angle, (0, thisMaster.xHeight * 0.5), cursify)
     return layer
 
 
@@ -60,8 +62,7 @@ def process(layer):
     slant(layer.background, angle, True)
 
 
-thisMasterAngle = thisFont.selectedFontMaster.italicAngle
-if(thisMasterAngle == 0):
+if(thisMaster.italicAngle == 0):
     raise("Italic Angle should be different than zero. Set a Italic Angle in Font Master")
 
 # Do the thing
