@@ -6,11 +6,11 @@ __doc__ = """
 A slanting workflow that do many things:
 - slant the foreground,
 - cursify the background,
-- and adds a "slanted" layer
-- and adds a "cursify" layer
-- and adds a "roundSlanting" layer with the glyph slanted with vertical compensation (based in Jacques Le Bailly method and Alexei Vanyashin script).
+- and adds a "slanted" layer,
+- and adds a "cursified" layer,
+- and adds a "roundSlanted" layer with the glyph slanted with vertical compensation (based in Jacques Le Bailly method and Alexei Vanyashin script).
 
-It takes the italicAngle declared in the Master as reference
+It takes the italicAngle declared in the Master as reference.
 """
 
 thisFont = Glyphs.font  # frontmost font
@@ -29,9 +29,9 @@ def jacquesSlanting(layer, angle):
     return layer
 
 
-def slant(layer, angle, cursify=False):
+def slant(layer, angle, cursified=False):
     layer.slant_Origin_doCorrection_(
-        angle, (0, thisMaster.xHeight * 0.5), cursify)
+        angle, (0, thisMaster.xHeight * 0.5), cursified)
     return layer
 
 
@@ -44,17 +44,17 @@ def process(layer):
     slant(slanted, angle, False)
     thisFont.glyphs[layer.parent.name].layers.append(slanted)
 
-    # roundSlanting layer
+    # roundSlanted layer
     cursified = layer.copy()
     cursified.name = 'cursified'
     slant(cursified, angle, True)
     thisFont.glyphs[layer.parent.name].layers.append(cursified)
 
-    # roundSlanting layer
-    roundSlanting = layer.copy()
-    roundSlanting.name = 'roundSlanting'
-    jacquesSlanting(roundSlanting, angle)
-    thisFont.glyphs[layer.parent.name].layers.append(roundSlanting)
+    # roundSlanted layer
+    roundSlanted = layer.copy()
+    roundSlanted.name = 'roundSlanted'
+    jacquesSlanting(roundSlanted, angle)
+    thisFont.glyphs[layer.parent.name].layers.append(roundSlanted)
 
     # Replacing MAIN layers
     slant(layer, angle, False)
@@ -62,10 +62,10 @@ def process(layer):
 
     # move back:
     oldPos = layer.bounds.origin
-    newPos = roundSlanting.bounds.origin
+    newPos = roundSlanted.bounds.origin
     xShiftBack = oldPos.x-newPos.x
     yShiftBack = oldPos.y-newPos.y
-    roundSlanting.applyTransform([1, 0, 0, 1, xShiftBack, yShiftBack])
+    roundSlanted.applyTransform([1, 0, 0, 1, xShiftBack, yShiftBack])
 
 
 if(thisMaster.italicAngle == 0):
