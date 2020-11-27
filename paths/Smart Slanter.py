@@ -38,11 +38,6 @@ def slant(layer, angle, cursified=False):
 def process(layer):
     angle = layer.master.italicAngle
 
-    # Replacing MAIN layers
-    layer.setBackground_(layer)
-    slant(layer, angle, False)
-    slant(layer.background, angle, True)
-
     # slanted layer
     slanted = layer.copy()
     slanted.name = 'slanted'
@@ -61,6 +56,10 @@ def process(layer):
     jacquesSlanting(roundSlanted, angle)
     thisFont.glyphs[layer.parent.name].layers.append(roundSlanted)
 
+    # Replacing MAIN layers
+    layer.setBackground_(layer)
+    slant(layer, angle, False)
+    slant(layer.background, angle, True)
 
     # move back:
     oldPos = layer.bounds.origin
