@@ -6,8 +6,9 @@ __doc__ = """
 A slanting workflow that do many things:
 - slant the foreground,
 - cursify the background,
-- adds a "backup" layer with the current drawing,
-- and adds a "roundSlanting" layer with the glyph slanted with vertical compensation (method by Jacques Le Bailly and a script from Alexei Vanyashin).
+- and adds a "slanted" layer
+- and adds a "cursify" layer
+- and adds a "roundSlanting" layer with the glyph slanted with vertical compensation (based in Jacques Le Bailly method and Alexei Vanyashin script).
 
 It takes the italicAngle declared in the Master as reference
 """
@@ -37,13 +38,17 @@ def slant(layer, angle, cursify=False):
 def process(layer):
     angle = layer.master.italicAngle
 
-    # Copy foreground to background
-    layer.setBackground_(layer)
+    # slanted layer
+    slanted = layer.copy()
+    slanted.name = 'slanted'
+    slant(slanted, angle, False)
+    thisFont.glyphs[layer.parent.name].layers.append(slanted)
 
-   # Backup layer
-    backup = layer.copy()
-    backup.name = 'backup'
-    thisFont.glyphs[layer.parent.name].layers.append(backup)
+    # roundSlanting layer
+    cursified = layer.copy()
+    cursified.name = 'cursified'
+    slant(cursified, angle, True)
+    thisFont.glyphs[layer.parent.name].layers.append(cursified)
 
     # roundSlanting layer
     roundSlanting = layer.copy()
@@ -51,7 +56,7 @@ def process(layer):
     jacquesSlanting(roundSlanting, angle)
     thisFont.glyphs[layer.parent.name].layers.append(roundSlanting)
 
-    # Slanting foreground, cursify background
+    # Replacing MAIN layers
     slant(layer, angle, False)
     slant(layer.background, angle, True)
 
@@ -64,14 +69,18 @@ def process(layer):
 
 
 if(thisMaster.italicAngle == 0):
-    raise("Italic Angle should be different than zero. Set a Italic Angle in Font Master")
+    Message(
+        "Set a Italic Angle",
+        "Italic Angle in current Master should be different than zero"
+    )
 
-# Do the thing
-thisFont.disableUpdateInterface()
-for layer in selectedLayers:
-    layer.parent.beginUndo()
+else:
+    # Do the thing
+    thisFont.disableUpdateInterface()
+    for layer in selectedLayers:
+        layer.parent.beginUndo()
 
-    process(layer)
-    layer.parent.endUndo()
+        process(layer)
+        layer.parent.endUndo()
 
-thisFont.enableUpdateInterface()
+    thisFont.enableUpdateInterface()
