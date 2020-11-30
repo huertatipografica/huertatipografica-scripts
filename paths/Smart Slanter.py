@@ -29,9 +29,9 @@ def jacquesSlanting(layer, angle):
     return layer
 
 
-def slant(layer, angle, cursified=False):
+def slant(layer, angle, cursify):
     layer.slant_Origin_doCorrection_(
-        angle, (0, thisMaster.xHeight * 0.5), cursified)
+        angle, (0, thisMaster.xHeight * 0.5), cursify)
     return layer
 
 
@@ -40,15 +40,9 @@ def process(layer):
 
     # slanted layer
     slanted = layer.copy()
-    slanted.name = 'slanted'
     slant(slanted, angle, False)
+    slanted.name = 'slanted'
     thisFont.glyphs[layer.parent.name].layers.append(slanted)
-
-    # roundSlanted layer
-    cursified = layer.copy()
-    cursified.name = 'cursified'
-    slant(cursified, angle, True)
-    thisFont.glyphs[layer.parent.name].layers.append(cursified)
 
     # roundSlanted layer
     roundSlanted = layer.copy()
@@ -60,6 +54,12 @@ def process(layer):
     layer.setBackground_(layer)
     slant(layer, angle, False)
     slant(layer.background, angle, True)
+
+     # cursified layer
+    cursified = layer.copy()
+    cursified.paths = layer.background.paths
+    cursified.name = 'cursified'
+    thisFont.glyphs[layer.parent.name].layers.append(cursified)
 
     # move back:
     oldPos = layer.bounds.origin
