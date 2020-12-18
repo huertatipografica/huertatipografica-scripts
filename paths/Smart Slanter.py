@@ -29,6 +29,16 @@ def jacquesSlanting(layer, angle):
     return layer
 
 
+def rotate(layer, angle):
+    myTransform = NSAffineTransform.transform()
+    myTransform.rotateByDegrees_(angle*-1)
+    layer.applyTransform(myTransform.transformStruct())
+    layer.anchors = []
+    layer.background.paths = []
+
+    return layer
+
+
 def slant(layer, angle, cursify):
     layer.slant_Origin_doCorrection_(
         angle, (0, thisMaster.xHeight * 0.5), cursify)
@@ -50,12 +60,18 @@ def process(layer):
     jacquesSlanting(roundSlanted, angle)
     thisFont.glyphs[layer.parent.name].layers.append(roundSlanted)
 
+    # rotated layer
+    rotated = layer.copy()
+    rotated.name = 'rotated'
+    rotate(rotated, angle)
+    thisFont.glyphs[layer.parent.name].layers.append(rotated)
+
     # Replacing MAIN layers
     layer.setBackground_(layer)
     slant(layer, angle, False)
     slant(layer.background, angle, True)
 
-     # cursified layer
+    # cursified layer
     cursified = layer.copy()
     cursified.paths = layer.background.paths
     cursified.name = 'cursified'
@@ -63,10 +79,16 @@ def process(layer):
 
     # move back:
     oldPos = layer.bounds.origin
-    newPos = roundSlanted.bounds.origin
-    xShiftBack = oldPos.x-newPos.x
-    yShiftBack = oldPos.y-newPos.y
-    roundSlanted.applyTransform([1, 0, 0, 1, xShiftBack, yShiftBack])
+
+    roundSlantedPos = roundSlanted.bounds.origin
+    xRoundSlantedShiftBack = oldPos.x-roundSlantedPos.x
+    yRoundSlantedShiftBack = oldPos.y-roundSlantedPos.y
+    roundSlanted.applyTransform([1, 0, 0, 1, xRoundSlantedShiftBack, yRoundSlantedShiftBack])
+
+    rotatedPos = rotated.bounds.origin
+    xrotatedShiftBack = oldPos.x-rotatedPos.x
+    yrotatedShiftBack = oldPos.y-rotatedPos.y
+    rotated.applyTransform([1, 0, 0, 1, xrotatedShiftBack, yrotatedShiftBack])
 
 
 if(thisMaster.italicAngle == 0):
