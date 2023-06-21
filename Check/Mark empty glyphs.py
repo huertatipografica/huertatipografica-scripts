@@ -1,6 +1,6 @@
-#MenuTitle: Mark empty glyphs
+# MenuTitle: Mark empty glyphs
 # -*- coding: utf-8 -*-
-__doc__="""
+__doc__ = """
 Mark empty Glyphs in current Layer
 """
 
@@ -10,12 +10,12 @@ Doc = Glyphs.currentDocument
 Font = Glyphs.font
 selectedLayers = Font.selectedLayers
 
-outputString = ''
+outputString = ""
 
 for thisLayer in selectedLayers:
-	count = len(thisLayer.paths) + len(thisLayer.components)
-	if count == 0 and thisLayer.parent.subCategory != 'Space':
-		outputString +='/'+thisLayer.parent.name
-		thisLayer.parent.color=0
+    count = len(thisLayer.paths) + len(thisLayer.components)
+    if count == 0 and thisLayer.parent.subCategory != "Space":
+        outputString += "/" + thisLayer.parent.name
+        thisLayer.parent.color = 0
 
-print "Empty Glyphs in master: " + outputString
+print("Empty Glyphs in master: " + outputString)

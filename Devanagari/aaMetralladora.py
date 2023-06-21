@@ -1,6 +1,6 @@
-#MenuTitle: aaMetralladora
+# MenuTitle: aaMetralladora
 # -*- coding: utf-8 -*-
-__doc__="""
+__doc__ = """
 Combine selected glyphs in a new Tab with 'aaMatra-deva' character. Useful for Devanagari fonts.
 """
 import GlyphsApp
@@ -14,8 +14,10 @@ interCharacter = "/aaMatra-deva"
 outputString = interCharacter
 
 for thisLayer in selectedLayers:
-	thisGlyphName = thisLayer.parent.name
-	outputString +='/'+thisGlyphName+ interCharacter
+    thisGlyphName = thisLayer.parent.name
+    outputString += "/" + thisGlyphName + interCharacter
 
 
-Doc.windowController().performSelectorOnMainThread_withObject_waitUntilDone_( "addTabWithString:", outputString, True )
+Doc.windowController().performSelectorOnMainThread_withObject_waitUntilDone_(
+    "addTabWithString:", outputString, True
+)

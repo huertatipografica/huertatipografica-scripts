@@ -1,6 +1,6 @@
-#MenuTitle: Anchors from last component
+# MenuTitle: Anchors from last component
 # -*- coding: utf-8 -*-
-__doc__="""
+__doc__ = """
 Copy all the anchors contained in the last component that has the selected glyph. Useful for devanagari conjunts.
 """
 
@@ -12,37 +12,47 @@ FontMaster = Font.selectedFontMaster
 selectedLayers = Font.selectedLayers
 
 try:
-	Glyphs.clearLog()
-	# Glyphs.showMacroWindow()
+    Glyphs.clearLog()
+    # Glyphs.showMacroWindow()
 except:
-	pass
+    pass
 
 for thisLayer in selectedLayers:
-	# Reset array
-	# components = [ component for component in thisLayer.components if Font.glyphs[ component.componentName ].category == 'Letter']
-	components = [ component for component in thisLayer.components]
-	last = len(components) - 1
+    # Reset array
+    # components = [ component for component in thisLayer.components if Font.glyphs[ component.componentName ].category == 'Letter']
+    components = [component for component in thisLayer.components]
+    last = len(components) - 1
 
-	if len(components) > 0:
-		# select last component
-		componentName = thisLayer.components[last].componentName
-		componentOffsetX = thisLayer.components[last].position.x
-		componentOffsetY = thisLayer.components[last].position.y
+    if len(components) > 0:
+        # select last component
+        componentName = thisLayer.components[last].componentName
+        componentOffsetX = thisLayer.components[last].position.x
+        componentOffsetY = thisLayer.components[last].position.y
 
-		# select glyph referenced on last component
-		componentLayer = Font.glyphs[ componentName ].layers[ FontMaster.id ]
+        # select glyph referenced on last component
+        componentLayer = Font.glyphs[componentName].layers[FontMaster.id]
 
-		print thisLayer.parent.name.upper()
-		# Copy all anchors
-		for anchor in componentLayer.anchors:
+        print(thisLayer.parent.name.upper())
+        # Copy all anchors
+        for anchor in componentLayer.anchors:
 
-			thisAnchorPosition = NSPoint()
-			thisAnchorPosition.x = anchor.x + componentOffsetX
-			thisAnchorPosition.y = anchor.y + componentOffsetY
+            thisAnchorPosition = NSPoint()
+            thisAnchorPosition.x = anchor.x + componentOffsetX
+            thisAnchorPosition.y = anchor.y + componentOffsetY
 
-			thisAnchorName = anchor.name
+            thisAnchorName = anchor.name
 
-			thisAnchor = GSAnchor( thisAnchorName, thisAnchorPosition )
-			thisLayer.addAnchor_( thisAnchor )
+            thisAnchor = GSAnchor(thisAnchorName, thisAnchorPosition)
+            thisLayer.addAnchor_(thisAnchor)
 
-			print "-- Added %s (%i, %i) from %s" % (thisAnchorName, thisAnchorPosition.x, thisAnchorPosition.y , componentName)
+            print(
+                (
+                    "-- Added %s (%i, %i) from %s"
+                    % (
+                        thisAnchorName,
+                        thisAnchorPosition.x,
+                        thisAnchorPosition.y,
+                        componentName,
+                    )
+                )
+            )

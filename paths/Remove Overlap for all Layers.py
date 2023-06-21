@@ -12,12 +12,14 @@ selectedGlyphs = [x.parent for x in Font.selectedLayers]
 # Run
 Font.disableUpdateInterface()
 
+
 def process(thisGlyph):
     thisGlyph.beginUndo()
     for layer in thisGlyph.layers:
         layer.removeOverlap()
 
     thisGlyph.endUndo()
+
 
 for thisGlyph in selectedGlyphs:
     process(thisGlyph)

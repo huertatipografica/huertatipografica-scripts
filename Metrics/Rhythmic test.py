@@ -1,6 +1,6 @@
-#MenuTitle: Rhythmic test
+# MenuTitle: Rhythmic test
 # -*- coding: utf-8 -*-
-__doc__="""
+__doc__ = """
 Repeat and combine selected glyphs in a new Tab. Create a 'spacingGlyph' character with zero spacing for better results.
 """
 
@@ -12,35 +12,41 @@ selectedLayers = Font.selectedLayers
 
 repetitions = 5
 
-outputString = ''
+outputString = ""
 Glyphs.clearLog()
 
 # Check if spacingGlyph exists
-if Font.glyphs['spacingGlyph']:
-	spacingGlyph = 'spacingGlyph'
-	print 'Showing results with spacingGlyph'
+if Font.glyphs["spacingGlyph"]:
+    spacingGlyph = "spacingGlyph"
+    print("Showing results with spacingGlyph")
 else:
-	spacingGlyph = 'bar'
-	print 'The glyph spacingGlyph is not created. Showing results with ' + spacingGlyph + ' as fallback'
+    spacingGlyph = "bar"
+    print(
+        "The glyph spacingGlyph is not created. Showing results with "
+        + spacingGlyph
+        + " as fallback"
+    )
 
 # Add three times
 for thisLayer in selectedLayers:
-	thisGlyphName = thisLayer.parent.name
-	for x in xrange(0,repetitions):
-		outputString +='/'+thisGlyphName
+    thisGlyphName = thisLayer.parent.name
+    for x in range(0, repetitions):
+        outputString += "/" + thisGlyphName
 
 # Add one time
-outputString +="\n"
+outputString += "\n"
 for thisLayer in selectedLayers:
-	thisGlyphName = thisLayer.parent.name
-	outputString +='/'+thisGlyphName
+    thisGlyphName = thisLayer.parent.name
+    outputString += "/" + thisGlyphName
 
 # Add character for center glyphs
-outputString +="\n/"+spacingGlyph
+outputString += "\n/" + spacingGlyph
 
 for thisLayer in selectedLayers:
-	thisGlyphName = thisLayer.parent.name
-	outputString +='/'+thisGlyphName+'/'+spacingGlyph
+    thisGlyphName = thisLayer.parent.name
+    outputString += "/" + thisGlyphName + "/" + spacingGlyph
 
-#print outputString
-Doc.windowController().performSelectorOnMainThread_withObject_waitUntilDone_( "addTabWithString:", outputString, True )
+# print outputString
+Doc.windowController().performSelectorOnMainThread_withObject_waitUntilDone_(
+    "addTabWithString:", outputString, True
+)

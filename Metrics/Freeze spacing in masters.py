@@ -1,6 +1,7 @@
 # MenuTitle: Freeze spacing in masters
 # -*- coding: utf-8 -*-
 import GlyphsApp
+
 __doc__ = """
 Set metric keys for each layer of selected glyphs. Useful for setting exceptions to HT Letterspacer
 """
@@ -19,9 +20,8 @@ for thisLayer in listOfSelectedLayers:
     for layer in thisGlyph.layers:
         if layer.associatedMasterId:
             # Freeze Values
-            layer.rightMetricsKey = '==%s' % (layer.RSB)
-            layer.leftMetricsKey = '==%s' % (layer.LSB)
+            layer.rightMetricsKey = "==%s" % (layer.RSB)
+            layer.leftMetricsKey = "==%s" % (layer.LSB)
             layer.syncMetrics()
 
     thisGlyph.endUndo()
-

@@ -1,24 +1,22 @@
-#MenuTitle: Tab with all possible combinations
+# MenuTitle: Tab with all possible combinations
 # -*- coding: utf-8 -*-
-__doc__="""
+__doc__ = """
 Combine all selected glyphs in a new tab.
 """
 
 import GlyphsApp
 
-thisFont = Glyphs.font # frontmost font
-selectedLayers = thisFont.selectedLayers # active layers of selected glyphs
+thisFont = Glyphs.font  # frontmost font
+selectedLayers = thisFont.selectedLayers  # active layers of selected glyphs
 
 Glyphs.clearLog()
 
-tabString = ''
+tabString = ""
 
 for n in selectedLayers:
-	for i in selectedLayers:
-		tabString += "/" + n.parent.name
-		tabString += "/" + i.parent.name
-	tabString += "/" + n.parent.name + '\n\n'
+    for i in selectedLayers:
+        tabString += "/" + n.parent.name
+        tabString += "/" + i.parent.name
+    tabString += "/" + n.parent.name + "\n\n"
 
 thisFont.newTab(tabString)
-
-

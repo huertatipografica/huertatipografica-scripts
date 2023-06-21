@@ -26,9 +26,8 @@ tabString = ""
 for before, after in symbols:
     if thisFont[before] and thisFont[after]:
         for layer in listOfSelectedLayers:
-            if hasattr(layer.parent, 'name'):
-                tabString += "/%s/%s/%s" \
-                    % (before, layer.parent.name, after)
+            if hasattr(layer.parent, "name"):
+                tabString += "/%s/%s/%s" % (before, layer.parent.name, after)
         tabString += "/%s\n\n" % layer.parent.name
 
 if tabString:

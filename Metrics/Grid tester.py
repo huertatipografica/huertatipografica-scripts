@@ -1,6 +1,6 @@
-#MenuTitle: Grid tester
+# MenuTitle: Grid tester
 # -*- coding: utf-8 -*-
-__doc__="""
+__doc__ = """
 Makes a grid combining selected glyphs in a new Tab. Useful for seeing unbalanced weights in glyphs.
 """
 
@@ -16,14 +16,16 @@ repetitions = 1
 
 # Clean
 Glyphs.clearLog()
-outputString = ''
+outputString = ""
 
 # Make grid
-for times in xrange(0,repetitions):
-	for i in xrange(0,qty):
-	 	outputString +="\n"
+for times in xrange(0, repetitions):
+    for i in xrange(0, qty):
+        outputString += "\n"
 
-	   	for g in selectedLayers[i:] + selectedLayers[:i]:
-				outputString +='/'+ g.parent.name
+        for g in selectedLayers[i:] + selectedLayers[:i]:
+            outputString += "/" + g.parent.name
 
-Doc.windowController().performSelectorOnMainThread_withObject_waitUntilDone_( "addTabWithString:", outputString, True )
+Doc.windowController().performSelectorOnMainThread_withObject_waitUntilDone_(
+    "addTabWithString:", outputString, True
+)

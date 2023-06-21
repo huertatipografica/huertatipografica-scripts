@@ -1,18 +1,19 @@
-#MenuTitle: Sync metrics in brace layers
+# MenuTitle: Sync metrics in brace layers
 # -*- coding: utf-8 -*-
-__doc__="""
+__doc__ = """
 Sync spacing interpolating the metrics in the brace layers
 """
 
 import GlyphsApp
 
-thisFont = Glyphs.font # frontmost font
-masters = thisFont.masters # masters
-listOfSelectedLayers = thisFont.selectedLayers # active layers of selected glyphs
+thisFont = Glyphs.font  # frontmost font
+masters = thisFont.masters  # masters
+listOfSelectedLayers = thisFont.selectedLayers  # active layers of selected glyphs
+
 
 def process(thisLayer):
     thisGlyph = thisLayer.parent
-    for i in range( len( thisGlyph.layers ) )[::-1]:
+    for i in range(len(thisGlyph.layers))[::-1]:
         currentLayer = thisGlyph.layers[i]
         # check name
         if currentLayer.name.startswith("{") and currentLayer.name.endswith("}"):
@@ -36,7 +37,11 @@ def process(thisLayer):
             currentLayer.background = old.background
             currentLayer.backgroundImage = old.backgroundImage
 
-            print "%s:\t%i <- -> %i" % (currentLayer.name, currentLayer.LSB, currentLayer.RSB)
+            print(
+                "%s:\t%i <- -> %i"
+                % (currentLayer.name, currentLayer.LSB, currentLayer.RSB)
+            )
+
 
 thisFont.disableUpdateInterface()
 Glyphs.clearLog()
@@ -52,4 +57,3 @@ for thisLayer in listOfSelectedLayers:
     thisGlyph.endUndo()
 
 thisFont.enableUpdateInterface()
-

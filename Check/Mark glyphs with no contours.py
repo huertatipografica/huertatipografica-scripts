@@ -1,6 +1,6 @@
-#MenuTitle: Mark glyphs with no contours
+# MenuTitle: Mark glyphs with no contours
 # -*- coding: utf-8 -*-
-__doc__="""
+__doc__ = """
 Mark glyphs with no contours in the current Layer
 """
 
@@ -10,15 +10,15 @@ Doc = Glyphs.currentDocument
 Font = Glyphs.font
 selectedLayers = Font.selectedLayers
 
-outputString = ''
+outputString = ""
 
 for thisLayer in selectedLayers:
-	count = 0
-	if thisLayer.parent.subCategory != 'Space':
-		for thisPath in thisLayer.paths:
-			count += len(thisPath.nodes)
-		if count < 2:
-			thisLayer.parent.color=6
-			outputString +='/'+thisLayer.parent.name
+    count = 0
+    if thisLayer.parent.subCategory != "Space":
+        for thisPath in thisLayer.paths:
+            count += len(thisPath.nodes)
+        if count < 2:
+            thisLayer.parent.color = 6
+            outputString += "/" + thisLayer.parent.name
 
-print "Glyphs with no contours in master: " + outputString
+print("Glyphs with no contours in master: " + outputString)
