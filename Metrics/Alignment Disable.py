@@ -14,12 +14,8 @@ Glyphs.clearLog()
 
 def process(thisLayer):
     for thisComp in thisLayer.components:
-        disable(thisLayer)
+        thisComp.automaticAlignment = False
 
-
-def disable(thisLayer):
-    for thisComp in thisLayer.components:
-        thisComp.setDisableAlignment_(True)
     print("Disabled automatic alignment in", thisLayer.parent.name)
 
 
