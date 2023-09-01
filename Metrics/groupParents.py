@@ -21,7 +21,7 @@ def char(name):
         return ("", None)
 
     layer = character.layers[0]
-    order_key = f"{character.category}-{character.subCategory}-{character.case}-{character.script}-{layer.LSB}-{name}"
+    order_key = f"{character.category}-{character.case}-{round(layer.LSB):05}-{character.script}-{name}"
 
     return order_key, name
 
