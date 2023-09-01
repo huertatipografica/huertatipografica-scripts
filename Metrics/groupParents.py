@@ -3,7 +3,7 @@
 import GlyphsApp
 
 __doc__ = """
-Goes through the kerning groups of the selected glyphs. Then opens a new tab with all the posible combinations so you can focus only in what you need to kern.
+Goes through the kerning groups of the selected glyphs. Then opens a new tab with all the group parents so you can check kerning groups.
 """
 
 
@@ -15,18 +15,15 @@ Glyphs.clearLog()
 
 
 def char(name):
-    if thisFont[name] is None:
-        print("%s not found in font." % (name))
+    character = thisFont[name]
+    if character is None:
+        print(f"{name} not found in font.")
         return ("", None)
 
-    category = thisFont[name].category
-    subCategory = thisFont[name].subCategory
-    script = thisFont[name].script
+    layer = character.layers[0]
+    order_key = f"{character.category}-{character.subCategory}-{character.case}-{character.script}-{layer.LSB}-{name}"
 
-    return (
-        "%s%s%s%s" % (category, subCategory, script, name),
-        name,
-    )
+    return order_key, name
 
 
 def keyList(selectedLayers):

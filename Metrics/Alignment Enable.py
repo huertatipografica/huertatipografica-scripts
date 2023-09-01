@@ -19,6 +19,7 @@ def process(thisLayer):
 
     print("Enabled automatic alignment in", thisLayer.parent.name)
 
+
 keysPressed = NSEvent.modifierFlags()
 shiftKeyPressed = keysPressed & NSShiftKeyMask == NSShiftKeyMask
 
