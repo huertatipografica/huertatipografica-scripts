@@ -1,7 +1,7 @@
 # MenuTitle: Smart Slanter (wip)
 # -*- coding: utf-8 -*-
 
-from AppKit import NSAffineTransform
+from AppKit import NSAffineTransform, NSEvent, NSShiftKeyMask
 from math import radians
 
 __doc__ = """
@@ -106,12 +106,23 @@ if thisMaster.italicAngle == 0:
     )
 
 else:
+    keysPressed = NSEvent.modifierFlags()
+    shiftKeyPressed = keysPressed & NSShiftKeyMask == NSShiftKeyMask
+
     # Do the thing
     thisFont.disableUpdateInterface()
-    for layer in selectedLayers:
-        layer.parent.beginUndo()
 
-        process(layer)
-        layer.parent.endUndo()
+    for thisLayer in selectedLayers:
+        thisGlyph = thisLayer.parent
+
+        thisGlyph.beginUndo()
+        if shiftKeyPressed:
+            for thisLayer in thisGlyph.layers:
+                if thisLayer.isMasterLayer:
+                    process(thisLayer)
+        else:
+            process(thisLayer)
+
+        thisGlyph.endUndo()
 
     thisFont.enableUpdateInterface()
