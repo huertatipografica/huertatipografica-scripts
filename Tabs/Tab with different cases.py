@@ -26,11 +26,18 @@ for layer in listOfSelectedLayers:
         segment = segments[0]
         lc = segment[0].lower() + segments[0][1:]
         uc = segment[0].upper() + segments[0][1:]
+        all_uc = segment.upper()
 
         # Uppercase
         segments[0] = uc
         glyphList.append(".".join(segments))
+
+        if all_uc != uc:
+            segments[0] = all_uc
+            glyphList.append(".".join(segments))
+
         segments[0] = lc
+
         # Small Caps
         if sc:
             glyphList.append(".".join(segments) + ".sc")
