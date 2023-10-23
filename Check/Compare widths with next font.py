@@ -11,11 +11,11 @@ Doc = Glyphs.currentDocument
 
 
 def main():
-    threshold = 20
+    threshold = 10
 
     if len(Glyphs.fonts) < 2:
         Glyphs.showNotification(
-            "No enough fonts", "You need 2+ fonts open to make this comparison"
+            "No enough fonts", "You need 2 fonts open to make this comparison"
         )
 
         return
@@ -41,8 +41,9 @@ def main():
     sorted_list = [
         res[1] for res in sorted(comparison, reverse=True) if res[0] > threshold
     ]
+
     Font.newTab(
-        f"{master1.name} vs {master2.name} (master {current_master_index+1}) characters sorted by width diff: \n\n"
+        f"{font1.familyName} {master1.name} VS \n{font2.familyName} {master2.name} \n(Master {current_master_index+1}) characters sorted by width diff: \n\n"
         + "/"
         + "/".join(sorted_list)
     )
