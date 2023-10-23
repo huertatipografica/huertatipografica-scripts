@@ -1,9 +1,10 @@
 # MenuTitle: Compare widths with next font
 # -*- coding: utf-8 -*-
 __doc__ = """
-Opens a new tab comparing the widths of current master with the next font corresponding one. The list is sorted starting by the bigger difference
+Opens a new tab comparing the widths of current master with the next font corresponding one. The list is sorted starting by the bigger difference. Hold SHIFT to only measure glyphs with outlines
 """
 
+from AppKit import NSEvent, NSShiftKeyMask
 
 Font = Glyphs.font
 selectedLayers = Font.selectedLayers
@@ -28,10 +29,17 @@ def main():
     master1 = font1.masters[current_master_index]
     master2 = font2.masters[current_master_index]
 
+    keysPressed = NSEvent.modifierFlags()
+    shiftKeyPressed = keysPressed & NSShiftKeyMask == NSShiftKeyMask
+
     comparison = []
 
     for glyph in font1.glyphs:
         layer1 = glyph.layers[master1.id]
+
+        if shiftKeyPressed and not len(layer1.paths):
+            continue
+
         if not font2[glyph.name]:
             continue
 
