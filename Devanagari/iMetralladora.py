@@ -18,6 +18,4 @@ for thisLayer in selectedLayers:
     outputString += interCharacter + "/" + thisGlyphName + "\n"
 
 
-Doc.windowController().performSelectorOnMainThread_withObject_waitUntilDone_(
-    "addTabWithString:", outputString, True
-)
+Font.newTab(outputString)

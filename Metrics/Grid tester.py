@@ -26,6 +26,5 @@ for times in xrange(0, repetitions):
         for g in selectedLayers[i:] + selectedLayers[:i]:
             outputString += "/" + g.parent.name
 
-Doc.windowController().performSelectorOnMainThread_withObject_waitUntilDone_(
-    "addTabWithString:", outputString, True
-)
+
+Font.newTab(outputString)

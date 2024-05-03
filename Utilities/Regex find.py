@@ -68,9 +68,7 @@ class OpenTab(object):
             )
         else:
             results = [g.name for g in Font.glyphs if re.search(searchFor, g.name)]
-            Doc.windowController().performSelectorOnMainThread_withObject_waitUntilDone_(
-                "addTabWithString:", "/" + "/".join(results), True
-            )
+            Font.newTab("/" + "/".join(results))
             self.w.close()
 
     def Close(self, sender):

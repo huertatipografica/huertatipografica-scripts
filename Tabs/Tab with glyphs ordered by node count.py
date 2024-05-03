@@ -49,6 +49,5 @@ for count in outputArray:
     for x in outputArray[count]:
         outputString += "/" + x
 
-Doc.windowController().performSelectorOnMainThread_withObject_waitUntilDone_(
-    "addTabWithString:", outputString, True
-)
+
+Font.newTab(outputString)

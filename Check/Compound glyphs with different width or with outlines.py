@@ -37,6 +37,5 @@ for thisLayer in selectedLayers:
 editString = editString.lstrip()
 print(Output)
 
-Doc.windowController().performSelectorOnMainThread_withObject_waitUntilDone_(
-    "addTabWithString:", editString, True
-)
+
+Font.newTab(editString)

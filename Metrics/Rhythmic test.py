@@ -39,6 +39,7 @@ for thisLayer in selectedLayers:
     thisGlyphName = thisLayer.parent.name
     outputString += "/" + thisGlyphName
 
+
 # Add character for center glyphs
 outputString += "\n/" + spacingGlyph
 
@@ -46,7 +47,5 @@ for thisLayer in selectedLayers:
     thisGlyphName = thisLayer.parent.name
     outputString += "/" + thisGlyphName + "/" + spacingGlyph
 
-# print outputString
-Doc.windowController().performSelectorOnMainThread_withObject_waitUntilDone_(
-    "addTabWithString:", outputString, True
-)
+
+Font.newTab(outputString)
